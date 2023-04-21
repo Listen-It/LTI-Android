@@ -5,37 +5,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.databinding.DataBindingUtil
+import com.example.domain.model.music.Info
+import com.example.domain.model.music.UploadMusic
 import com.example.listenit2.R
 import com.example.listenit2.databinding.ActivityMusicUploadBinding
+import com.example.listenit2.vm.MusicUploadViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.FileNotFoundException
 import java.lang.StringBuilder
+import javax.inject.Inject
 
 
+ @AndroidEntryPoint
  class  MusicUploadActivity : AppCompatActivity() {
 
      lateinit var binding : ActivityMusicUploadBinding
 
+     @Inject lateinit var viewModel : MusicUploadViewModel
+
+     var list = ArrayList<UploadMusic>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_music_upload)
     }
 
-     fun readAudioFile() {
-         val contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-         val projection = arrayOf(
-             MediaStore.Audio.Media._ID,
-             MediaStore.Audio.Media.DISPLAY_NAME,
-             MediaStore.Audio.Media.MIME_TYPE,
-             MediaStore.Audio.Media.DATA
-         )
-         val cursor = contentResolver.query(contentUri, projection, null, null, null)
 
-         if (cursor == null || !cursor.moveToFirst()) {
-             return
-         }
-
-        cursor.use { it ->
-        }
-
-     }
 }
